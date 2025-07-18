@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Results Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>School Results Management System</h1>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="upload">Upload Results</button>
+            <button class="tab-btn" data-tab="rubric">Rubric Settings</button>
+            <button class="tab-btn" data-tab="view">View Results</button>
+            <button class="tab-btn" data-tab="generate">Generate Reports</button>
+        </div>
+
+        <div id="upload" class="tab-content active">
+            <h2>Upload Student Results</h2>
+            <form id="resultForm">
+                <div class="form-group">
+                    <label for="regNumber">Registration Number:</label>
+                    <input type="text" id="regNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentName">Student Name:</label>
+                    <input type="text" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="grade">Grade:</label>
+                    <select id="grade" required>
+                        <option value="">Select Grade</option>
+                        <option value="Grade 1">Grade 1</option>
+                        <option value="Grade 2">Grade 2</option>
+                        <option value="Grade 3">Grade 3</option>
+                    </select>
+                </div>
+                
+                <div id="subjectContainer">
+                    <div class="subject-entry">
+                        <div class="form-group">
+                            <label for="subject1">Learning Area:</label>
+                            <input type="text" class="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Marks Obtained:</label>
+                            <input type="number" class="marks" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Out Of:</label>
+                            <input type="number" class="outOf" required>
+                        </div>
+                        <button type="button" class="remove-subject">Remove</button>
+                    </div>
+                </div>
+                
+                <button type="button" id="addSubject">Add Another Learning Area</button>
+                <button type="submit">Save Results</button>
+            </form>
+        </div>
+
+        <div id="rubric" class="tab-content">
+            <h2>Rubric Settings</h2>
+            <form id="rubricForm">
+                <div id="rubricRanges">
+                    <div class="rubric-range">
+                        <div class="form-group">
+                            <label>Percentage From:</label>
+                            <input type="number" class="from" min="0" max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Percentage To:</label>
+                            <input type="number" class="to" min="0" max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Rubric Score:</label>
+                            <input type="number" class="score" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Grade:</label>
+                            <input type="text" class="grade" required>
+                        </div>
+                        <button type="button" class="remove-range">Remove</button>
+                    </div>
+                </div>
+                <button type="button" id="addRange">Add Another Range</button>
+                <button type="submit">Save Rubric Settings</button>
+            </form>
+        </div>
+
+        <div id="view" class="tab-content">
+            <h2>View Results</h2>
+            <div class="form-group">
+                <label for="filterGrade">Filter by Grade:</label>
+                <select id="filterGrade">
+                    <option value="">All Grades</option>
+                    <option value="Grade 1">Grade 1</option>
+                    <option value="Grade 2">Grade 2</option>
+                    <option value="Grade 3">Grade 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="searchStudent">Search Student:</label>
+                <input type="text" id="searchStudent" placeholder="Enter name or registration number">
+            </div>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Reg. No.</th>
+                        <th>Name</th>
+                        <th>Grade</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                    <!-- Results will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="generate" class="tab-content">
+            <h2>Generate Reports</h2>
+            <div class="form-group">
+                <label for="reportGrade">Select Grade:</label>
+                <select id="reportGrade" required>
+                    <option value="">Select Grade</option>
+                    <option value="Grade 1">Grade 1</option>
+                    <option value="Grade 2">Grade 2</option>
+                    <option value="Grade 3">Grade 3</option>
+                </select>
+            </div>
+            <button id="generateAllReports">Generate Reports for All Students</button>
+            <div id="singleReportSection">
+                <div class="form-group">
+                    <label for="reportStudent">Select Student:</label>
+                    <select id="reportStudent" disabled>
+                        <option value="">Select a grade first</option>
+                    </select>
+                </div>
+                <button id="generateSingleReport">Generate Report for Selected Student</button>
+            </div>
+        </div>
+
+        <!-- Report Preview Modal -->
+        <div id="reportModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="reportPreview">
+                    <!-- Report will be generated here -->
+                </div>
+                <button id="downloadPdf">Download PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+  </html>
