@@ -1,0 +1,9 @@
+function initiateMpesaPayment() {
+  const amount = 500; // KES
+  const tillNumber = "8806128"; // Your Till Number
+  
+  alert(`Open M-Pesa and send KES ${amount} to Till No: ${tillNumber}\n\nAccount Number: SCHOOL-NAME`);
+  
+  // Optional: Verify payment via SMS callback (requires backend)
+  checkPaymentStatus();
+}
