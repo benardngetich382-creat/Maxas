@@ -1,0 +1,5 @@
+<div class="payment-section">
+  <h3>Upgrade to Premium (KES)</h3>
+  <button onclick="initiateMpesaPayment()">Pay via M-Pesa</button>
+  <p>Send KES 50 to Till No: <strong>8806128</strong></p>
+</div>
